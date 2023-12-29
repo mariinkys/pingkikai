@@ -42,12 +42,12 @@ impl Application for State {
 
     fn view(&self) -> iced::Element<'_, Self::Message, iced::Renderer<Self::Theme>> {
         let my_text_input =
-            TextInput::new("Enter Text", &self.text_input).on_input(|data| Messages::OnInput(data));
+            TextInput::new("Enter Text", &self.text_input).on_input(Messages::OnInput);
 
         let my_button: Button<'_, Messages> =
             Button::new("Placeholder Text").on_press(Messages::OnPressed);
 
-        let my_result_text = text(format!("{}", &self.result_text));
+        let my_result_text = text(&self.result_text.to_string());
 
         container(
             column!(my_text_input, my_button, my_result_text)
