@@ -35,7 +35,7 @@ impl Application for State {
     fn update(&mut self, message: Self::Message) -> Command<Self::Message> {
         match message {
             Messages::OnInput(data) => self.text_input = data,
-            Messages::OnPressed => self.result_text = String::from("Sad UwU Noises"),
+            Messages::OnPressed => self.result_text = self.text_input.clone(),
         }
         Command::none()
     }
@@ -49,11 +49,16 @@ impl Application for State {
 
         let my_result_text = text(format!("{}", &self.result_text));
 
-        container(column!(my_text_input, my_button, my_result_text))
-            .width(Length::Fill)
-            .height(Length::Fill)
-            .center_x()
-            .center_y()
-            .into()
+        container(
+            column!(my_text_input, my_button, my_result_text)
+                .align_items(iced::Alignment::Center)
+                .padding(50)
+                .spacing(25),
+        )
+        .width(Length::Fill)
+        .height(Length::Fill)
+        .center_x()
+        .center_y()
+        .into()
     }
 }
