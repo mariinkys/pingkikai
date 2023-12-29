@@ -1,3 +1,4 @@
+use crate::check_site;
 use iced::widget::{column, container, text, Button, TextInput};
 use iced::{executor, Application, Command, Length, Theme};
 
@@ -29,23 +30,33 @@ impl Application for State {
     }
 
     fn title(&self) -> String {
-        String::from("Iced Test")
+        String::from("Pingkikai")
     }
 
     fn update(&mut self, message: Self::Message) -> Command<Self::Message> {
         match message {
             Messages::OnInput(data) => self.text_input = data,
-            Messages::OnPressed => self.result_text = self.text_input.clone(),
+            Messages::OnPressed => {
+                let result: bool = check_site(self.text_input.clone());
+                if result {
+                    self.result_text = String::from("Website is Up")
+                } else {
+                    self.result_text = String::from("Website is Down")
+                }
+            }
         }
         Command::none()
     }
 
     fn view(&self) -> iced::Element<'_, Self::Message, iced::Renderer<Self::Theme>> {
         let my_text_input =
-            TextInput::new("Enter Text", &self.text_input).on_input(Messages::OnInput);
+            TextInput::new("Enter a site. Ej: https://mariinkys.dev", &self.text_input)
+                .on_input(Messages::OnInput)
+                .padding(15);
 
-        let my_button: Button<'_, Messages> =
-            Button::new("Placeholder Text").on_press(Messages::OnPressed);
+        let my_button: Button<'_, Messages> = Button::new("Check Site")
+            .on_press(Messages::OnPressed)
+            .padding(15);
 
         let my_result_text = text(&self.result_text.to_string());
 
