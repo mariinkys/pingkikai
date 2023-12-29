@@ -3,6 +3,8 @@ use iced::{Application, Settings};
 use window::State;
 
 fn main() {
+    load_create_config();
+
     State::run(Settings::default()).expect("Pingkikai");
 }
 
@@ -17,3 +19,18 @@ pub fn check_site(url: String) -> bool {
         Err(_err) => false,
     }
 }
+
+//TODO: Retrieve config file
+fn load_create_config() {
+    match std::env::consts::OS {
+        "linux" => println!("Running on Linux"),
+        "macos" => println!("Running on macOS"),
+        "windows" => println!("Running on Windows"),
+        _ => {
+            println!("Running on an unknown operating system");
+            std::process::exit(1);
+        }
+    }
+}
+
+//TODO: Save config file
