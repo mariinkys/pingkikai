@@ -1,4 +1,4 @@
-use iced::widget::{column, container, text, Button, TextInput};
+use iced::widget::{column, container, row, text, Button, TextInput};
 use iced::{executor, Application, Command, Length, Theme};
 
 pub struct State {
@@ -50,27 +50,26 @@ impl Application for State {
     }
 
     fn view(&self) -> iced::Element<'_, Self::Message, iced::Renderer<Self::Theme>> {
-        let my_text_input =
-            TextInput::new("Enter a site. Ej: https://mariinkys.dev", &self.text_input)
-                .on_input(Messages::OnInput)
-                .padding(15);
+        let url_input = TextInput::new("Enter a site. Ej: https://mariinkys.dev", &self.text_input)
+            .on_input(Messages::OnInput)
+            .padding(15);
 
-        let my_button: Button<'_, Messages> = Button::new("Check Site")
+        let check_site_button: Button<'_, Messages> = Button::new("Check Site")
             .on_press(Messages::OnPressed)
             .padding(15);
 
-        let my_result_text = text(&self.result_text.to_string());
+        let result_text = text(&self.result_text.to_string());
+
+        let input_row = row![url_input, check_site_button].spacing(25);
 
         container(
-            column!(my_text_input, my_button, my_result_text)
+            column!(input_row, result_text)
                 .align_items(iced::Alignment::Center)
                 .padding(50)
                 .spacing(25),
         )
         .width(Length::Fill)
-        .height(Length::Fill)
         .center_x()
-        .center_y()
         .into()
     }
 
