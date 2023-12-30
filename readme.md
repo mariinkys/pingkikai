@@ -6,7 +6,7 @@ Pingkikai is a dead simple application that allows you to check if a website is 
 - [iced.rs API Reference](https://docs.rs/iced/latest/iced/)
 - [Building a simple text editor with iced - Tutorial Video](https://www.youtube.com/watch?v=gcBJ7cPSALo&t=573s)
 
-My goal with this application is to learn as much as I can about Rust and, of course, Iced. In the future, I'd like to make a gallery application I like enjoy using in my Silverblue desktop.
+My goal with this application is to learn as much as I can about Rust and, of course, Iced. In the future, I'd like to make a gallery application that I like and I enjoy using in my Silverblue desktop.
 
 <a href="https://github.com/iced-rs/iced">
   <img src="https://gist.githubusercontent.com/hecrj/ad7ecd38f6e47ff3688a38c79fd108f0/raw/74384875ecbad02ae2a926425e9bcafd0695bade/color.svg" width="130px">
