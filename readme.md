@@ -17,4 +17,11 @@ My goal with this application is to learn as much as I can about Rust and, of co
 - [X] Application change light/dark theme depending on system theme
 - [ ] Improve the application design
 - [ ] Application can save/retrieve data on close/open
+- [ ] Non-blocking reqwests
 - [ ] Publish the application as a Flatpak
+
+## About me
+
+Check out my [other projects](https://github.com/mariinkys/pingkikai) 
+
+You can also help do this and more projects, [Buy me a coffee](https://www.buymeacoffee.com/mariinkys)
