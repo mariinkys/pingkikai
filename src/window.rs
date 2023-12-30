@@ -59,6 +59,11 @@ impl Application for State {
                         id: new_id,
                         url: (self.url_input.to_string()),
                         status: new_status,
+                        status_text: if new_status {
+                            String::from("Up")
+                        } else {
+                            String::from("Down")
+                        },
                     });
                 }
             }
@@ -71,6 +76,11 @@ impl Application for State {
                 if let Some(index) = self.saved_sites.iter().position(|site| site.id == id) {
                     let site = &mut self.saved_sites[index];
                     site.status = check_site(site.url.to_string());
+                    site.status_text = if site.status {
+                        String::from("Up")
+                    } else {
+                        String::from("Down")
+                    }
                 }
             }
         }
@@ -101,8 +111,8 @@ impl Application for State {
             .iter()
             .enumerate()
             .map(|(_i, site)| -> Row<'_, Messages> {
-                let url_text = text(site.url.to_string()).height(25).width(Length::Fill);
-                let status_text = text(site.status.to_string()).height(25).width(Length::Fill);
+                let url_text = text(site.url.to_string()).width(Length::Fill);
+                let status_text = text(site.status_text.to_string()).width(Length::Fill);
                 let delete_button = Button::new("Delete")
                     .on_press(Messages::DeleteSite(site.id))
                     .padding(15);
@@ -111,6 +121,7 @@ impl Application for State {
                     .padding(15);
 
                 row!(url_text, status_text, delete_button, check_button)
+                    .align_items(iced::Alignment::Center)
                     .width(Length::Fill)
                     .spacing(25)
             })
@@ -139,6 +150,7 @@ struct Site {
     id: i64,
     url: String,
     status: bool,
+    status_text: String,
 }
 
 fn check_site(url: String) -> bool {
