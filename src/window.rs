@@ -5,6 +5,7 @@ use iced::{executor, Application, Command, Length, Theme};
 pub struct State {
     text_input: String,
     result_text: String,
+    theme: Theme,
 }
 
 #[derive(Debug, Clone)]
@@ -24,6 +25,7 @@ impl Application for State {
             State {
                 text_input: String::from(""),
                 result_text: String::from(""),
+                theme: system_theme_mode(),
             },
             Command::none(),
         )
@@ -71,5 +73,16 @@ impl Application for State {
         .center_x()
         .center_y()
         .into()
+    }
+
+    fn theme(&self) -> Theme {
+        self.theme.clone()
+    }
+}
+
+fn system_theme_mode() -> Theme {
+    match dark_light::detect() {
+        dark_light::Mode::Light | dark_light::Mode::Default => Theme::Light,
+        dark_light::Mode::Dark => Theme::Dark,
     }
 }
