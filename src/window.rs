@@ -1,4 +1,4 @@
-use iced::widget::{column, container, row, text, Button, Row, TextInput};
+use iced::widget::{column, container, row, text, Button, Row, Scrollable, TextInput};
 use iced::{executor, Application, Command, Length, Theme};
 
 pub struct State {
@@ -119,11 +119,12 @@ impl Application for State {
         let sites_col = sites
             .into_iter()
             .fold(column!().spacing(25), |col, site| col.push(site));
+        let sites_scrollable = Scrollable::new(sites_col).height(Length::Fill);
 
         let input_row = row![url_input, check_site_button, add_site_button].spacing(25);
 
         container(
-            column!(input_row, result_text, sites_col)
+            column!(input_row, result_text, sites_scrollable)
                 .align_items(iced::Alignment::Center)
                 .padding(50)
                 .spacing(25),
